@@ -4,6 +4,7 @@ namespace My\SmartCache;
 
 use Bitrix\Main\Data\Cache;
 use Bitrix\Main\Application;
+use Bitrix\Main\Config\Option;
 
 
 class Manager
@@ -12,12 +13,13 @@ class Manager
     {
 
         $cache = Cache::createInstance();
-        $cacheTime = 60;
+        $cacheTime = Option::get('smartcache', 'CACHETIME', 3600);
         $cacheId = "iblock_{$iblockId}_".md5(serialize($filter).serialize($select));
         $cachePath = "/my.smartcache/iblock_{$iblockId}/";
 
 
         if ($cache->initCache($cacheTime, $cacheId, $cachePath)) {
+
 
             echo "<p>Данные взяты из кеша</p>";
 
