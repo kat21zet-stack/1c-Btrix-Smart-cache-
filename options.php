@@ -12,11 +12,12 @@ Loader::includeModule('iblock');
 
 //Получаем список инфоблоков
 $iblocks = [];
-$res = CIBlock::GetList(['SORT'=>'ASC'], ['ACTIVE'=>'Y']);
+$res = \CIBlock::GetList(['SORT'=>'ASC'], ['ACTIVE'=>'Y']);
 while($ib=$res->Fetch())
 {
     $iblocks[$ib['ID']] = '['.$ib['ID'].']' .$ib['NAME'];
 }
+print_r($iblocks);
 
 
 
@@ -39,7 +40,7 @@ $selectedSections = unserialize(Option::get($module_id, "SELECTED_SECTIONS", 'a:
 $sections = [];
 if ($selectedIblock){
 
-    $res = CIBlockSection::GetList(
+    $res = \CIBlockSection::GetList(
         ['SORT' => 'ASC'],
         ['IBLOCK_ID'=>$selectedIblock, 'ACTIVE' => 'Y'],
         false,
@@ -60,12 +61,13 @@ if ($selectedIblock){
     <h3>Выбор инфоблока</h3>
     <select name="SELECTED_IBLOCK">
         <option value="">--Выберите инфоблок--</option>
-        <?php foreach($iblock as $id => $name): ?>
+        <?php foreach($iblocks as $id => $name): ?>
             <option value="<?=$id?>"<?=($selectedIblock == $id ? 'selected': '')?>>
 
                 <?=$name?>
 
             </option>
+        <?php endforeach; ?>
     </select>
 
     <input type="submit" value="Сохранить">
