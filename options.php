@@ -50,6 +50,8 @@ if ($selectedIblock){
         $sections[$sec['ID']] = '['.$sec['ID'].'] ' .$sec['NAME'];
     }
 
+    print_r($sections);
+
 }
 
 ?>
@@ -69,6 +71,19 @@ if ($selectedIblock){
             </option>
         <?php endforeach; ?>
     </select>
+
+    <?php if ($selectedIblock): ?>
+        <h3>Выбор разделов</h3>
+        <select name="SELECTED_SECTIONS[]" multiple size="10" style="width:300px">
+            <?php foreach ($sections as $id => $name): ?>
+                <option value="<?=$id?>" <?=in_array($id, (array)$selectedSections)?'selected': ''?>>
+                    <?=$name?>
+                 </option>
+            <?php endforeach; ?>
+        </select>
+    <?php endif;?>
+
+    <br><br>
 
     <input type="submit" value="Сохранить">
     <?=bitrix_sessid_post()?>
