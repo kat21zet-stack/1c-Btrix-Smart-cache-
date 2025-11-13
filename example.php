@@ -15,3 +15,7 @@ if(!empty($sectionIds))
 }
 
 $data_el = Manager::getIblockElements($iblockId, $filter);
+
+foreach($data_el as $el) {
+    echo "<p><b>{$el['NAME']}</b>: {$el['PREVIEW_TEXT']}</p>";
+}
