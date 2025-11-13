@@ -12,6 +12,8 @@ class Manager
     public static function getIblockElements($iblockId, $filter = [], $select = ["ID", "NAME"])
     {
 
+        // $iblockId = Option
+
         $cache = Cache::createInstance();
         $cacheTime = Option::get('smartcache', 'CACHETIME', 3600);
         $cacheId = "iblock_{$iblockId}_".md5(serialize($filter).serialize($select));
